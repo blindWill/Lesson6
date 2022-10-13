@@ -5,37 +5,15 @@ import java.util.Objects;
 public class Square extends Shape{
     private int side;
     private boolean hasInCircle;
-
     public Square(){
         super();
-        int side = 10;
-        hasInCircle = false;
+        this.side = 10;
+        this.hasInCircle = false;
     }
     public Square(int side, boolean hasInCircle, Color color, LineType lineType){
         super(color, lineType);
         this.hasInCircle = hasInCircle;
         this.side = side;
-    }
-
-    public double getDiagonal(){
-        return side * Math.sqrt(2);
-    }
-
-    public double getInCircleArea(){
-        if (hasInCircle){
-            return Math.pow(side/2.0, 2) * Math.PI;
-        } else{
-            System.out.println("There is no inscribed circle");
-            return 0;
-        }
-    }
-    @Override
-    public double getArea(){
-        return side * side;
-    }
-    @Override
-    public int getPerimeter(){
-        return side * 4;
     }
 
     public int getSide() {
@@ -52,6 +30,27 @@ public class Square extends Shape{
 
     public void setHasInCircle(boolean hasInCircle) {
         this.hasInCircle = hasInCircle;
+    }
+
+    @Override
+    public double getArea(){
+        return side * side;
+    }
+    @Override
+    public int getPerimeter(){
+        return side * 4;
+    }
+    public double getDiagonal(){
+        return side * Math.sqrt(2);
+    }
+
+    public double getInCircleArea(){
+        if (hasInCircle){
+            return Math.pow(side/2.0, 2) * Math.PI;
+        } else{
+            System.out.println("There is no inscribed circle");
+            return 0;
+        }
     }
 
     @Override

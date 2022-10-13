@@ -6,25 +6,44 @@ public class Triangle extends Shape implements TriangleActions {
     private int firstSide;
     private int secondSide;
     private int thirdSide;
-
     public Triangle(){
         super();
-        firstSide = 10;
-        secondSide = 10;
-        thirdSide = 10;
+        this.firstSide = 10;
+        this.secondSide = 10;
+        this.thirdSide = 10;
     }
     public Triangle(int firstSide, int secondSide, int thirdSide, Color color, LineType lineType){
         super(color, lineType);
+        if (checkIfTriangleRight(firstSide, secondSide, thirdSide)){
+            this.firstSide = firstSide;
+            this.secondSide = secondSide;
+            this.thirdSide = thirdSide;
+        }else{
+            this.firstSide = 10;
+            this.secondSide = 10;
+            this.thirdSide = 10;
+        }
+    }
+
+    public int[] getSides() {
+        int[] sides = new int[]{firstSide, secondSide, thirdSide};
+        return sides;
+    }
+
+    public void setSides(int firstSide, int secondSide, int thirdSide) {
         checkIfTriangleRight(firstSide, secondSide, thirdSide);
         this.firstSide = firstSide;
         this.secondSide = secondSide;
         this.thirdSide = thirdSide;
     }
-    private void checkIfTriangleRight(int firstSide, int secondSide, int thirdSide){
-        if ((firstSide + secondSide) < thirdSide || (firstSide + thirdSide) < secondSide
-                || (secondSide + thirdSide) < firstSide){
-            throw new IllegalArgumentException("Sum of two sides must be lesser then third size");
-        }
+    @Override
+    public double getArea(){
+        double p = getPerimeter()/2.0;
+        return p * (p - firstSide) * (p - secondSide) * (p - thirdSide);
+    }
+    @Override
+    public int getPerimeter(){
+        return firstSide + secondSide + thirdSide;
     }
     @Override
     public void outputHeights(){
@@ -42,28 +61,15 @@ public class Triangle extends Shape implements TriangleActions {
             System.out.println("The triangle is scalene");
         }
     }
-    @Override
-    public double getArea(){
-        double p = getPerimeter()/2.0;
-        return p * (p - firstSide) * (p - secondSide) * (p - thirdSide);
+    private boolean checkIfTriangleRight(int firstSide, int secondSide, int thirdSide){
+        if ((firstSide + secondSide) < thirdSide || (firstSide + thirdSide) < secondSide
+                || (secondSide + thirdSide) < firstSide){
+            System.out.println("Sum of two sides must be lesser then third side");
+            return false;
+        }else{
+            return true;
+        }
     }
-    @Override
-    public int getPerimeter(){
-        return firstSide + secondSide + thirdSide;
-    }
-
-    public int[] getSides() {
-        int[] sides = new int[]{firstSide, secondSide, thirdSide};
-        return sides;
-    }
-
-    public void setSides(int firstSide, int secondSide, int thirdSide) {
-        checkIfTriangleRight(firstSide, secondSide, thirdSide);
-        this.firstSide = firstSide;
-        this.secondSide = secondSide;
-        this.thirdSide = thirdSide;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
